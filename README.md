@@ -19,19 +19,43 @@ Ensure you have the following installed:
 
 ## Setting Up Kafka
 
-### 1. Check if Kafka is Running
+#### **Step 1: Open a Terminal and Start Zookeeper**
+
+Open your terminal and run the following commands:
 
 ```sh
-kafka-topics.sh --list --bootstrap-server localhost:9092
+cd /home/dev41/kafka_2.13-3.7.0
+bin/zookeeper-server-start.sh config/zookeeper.properties
+```
+
+#### **Step 2: Open a New Terminal and Start Kafka Broker**
+
+In a new terminal, navigate to the Kafka directory and start the Kafka broker:
+
+```sh
+cd /home/dev41/kafka_2.13-3.7.0
+bin/kafka-server-start.sh config/server.properties
+```
+
+### 2. Create a Kafka Topic
+
+Run the following command to create a new Kafka topic named `my-topic`:
+
+```sh
+cd /home/dev41/kafka_2.13-3.7.0
+bin/kafka-topics.sh --create --topic my-topic --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+```
+
+### 3. Verify the Created Topic
+
+To verify that the topic was created successfully, run:
+
+```sh
+cd /home/dev41/kafka_2.13-3.7.0
+bin/kafka-topics.sh --list --bootstrap-server localhost:9092
 ```
 
 If Kafka is running, this command will list available topics.
-
-### 2. Create a Topic (if not created already)
-
-```sh
-kafka-topics.sh --create --topic my-topic --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
-```
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -96,10 +120,5 @@ go run consumer/main.go
 ```sh
 go run producer/main.go
 ```
-
-
-
-
-
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------
 
